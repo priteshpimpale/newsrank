@@ -1,0 +1,69 @@
+{
+  "allnews": [
+    {
+      "id": 1,
+      "headLine": "Dubai Floods",
+      "content": "Dubai was flooded",
+      "url": "https://news.google.com",
+      "votes": 125
+    },
+    {
+      "id": 2,
+      "headLine": "Android N Developer preview releasd",
+      "content": "Yesterday Googles Android N preview was released.",
+      "url": "https://news.google.com",
+      "votes": 42
+    },
+    {
+      "id": 3,
+      "headLine": "Vijay Malya flies to UK",
+      "content": "Vijay Malya flies to UK 2 days ago.",
+      "url": "https://news.google.com",
+      "votes": 6
+    },
+    {
+      "id": 4,
+      "headLine": "Deepika in LA",
+      "content": "Deepika was seen with Novak Djocowic leaving a hotel in LA last evening.",
+      "url": "https://news.google.com",
+      "votes": 90
+    },
+    {
+      "id": 5,
+      "headLine": "Google self drive car",
+      "content": "Google self drive car gets permit in California",
+      "url": "https://news.google.com",
+      "votes": 201
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "user001",
+      "password": "password001",
+      "votes": {
+        "up": [
+          1,
+          2
+        ],
+        "down": [
+          3
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "username": "user002",
+      "password": "password002",
+      "votes": {
+        "up": [
+          2,
+          4
+        ],
+        "down": [
+          1
+        ]
+      }
+    }
+  ]
+}
