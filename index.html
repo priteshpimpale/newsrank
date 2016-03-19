@@ -11,9 +11,9 @@
 
 </head>
 
-<body>
+<body class="grey lighten-4">
     <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper  blue ">
             <a href="#" class="brand-logo">Newsrank</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="#">Register</a></li>
@@ -24,85 +24,42 @@
     </nav>
 
     <div class="row">
-        <div class="col s12">
-            <ul class="tabs">
-                <li class="tab col s3"><a class="active" href="#test1">Top</a></li>
-                <li class="tab col s3"><a href="#test2">Trending</a></li>
-                <li class="tab col s3 disabled"><a href="#test3">Latest</a></li>
-            </ul>
-        </div>
-        <div id="test1" class="col s12">
-            <div class="row">
-                <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient
-                                because I require little markup to use effectively.</p>
-                        </div>
-                        <div class="card-action">
-                            <i class="material-icons">thumb_down</i>
-                            <i class="material-icons">thumb_up</i>
-                        </div>
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#test1">Top</a></li>
+        <li class="tab col s3"><a href="#test2">Trending</a></li>
+        <li class="tab col s3 disabled"><a href="#test3">Latest</a></li>
+      </ul>
+    </div>
+    <div id="test1" class="col s12">
+        <div class="row" id="topnews">   
+            <!--<div class="col l4">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title truncate">News Title too long to fit in the title content</span>
+                        <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient because I require
+                            little markup to use effectively. </p>
+                    </div>
+                    <div class="card-action right-align">
+                        <a><span>3</span><span> Comments</span></a>
+                        <a class="waves-effect waves-teal btn-flat"><i class="material-icons">thumb_down</i></a>
+                        <span>125</span>
+                        <a class="waves-effect waves-teal btn-flat"><i class="material-icons">thumb_up</i></a>
                     </div>
                 </div>
-                <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient
-                                because I require little markup to use effectively.</p>
-                        </div>
-                        <div class="card-action">
-                            <i class="material-icons">thumb_down</i>
-                            <i class="material-icons">thumb_up</i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient
-                                because I require little markup to use effectively.</p>
-                        </div>
-                        <div class="card-action">
-                            <i class="material-icons">thumb_down</i>
-                            <i class="material-icons">thumb_up</i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient
-                                because I require little markup to use effectively.</p>
-                        </div>
-                        <div class="card-action">
-                            <i class="material-icons">thumb_down</i>
-                            <i class="material-icons">thumb_up</i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient
-                                because I require little markup to use effectively.</p>
-                        </div>
-                        <div class="card-action">
-                            <ul class="right">
-                                <li><i class="material-icons">thumb_down</i></li>
-                                <li><i class="material-icons">thumb_up</i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            </div>-->
+            
+        </div>        
+    </div>
+    <div id="test2" class="col s12">Trending
+         <a class="modal-trigger waves-effect waves-light btn" href="#modal1" id="mod">Modal</a>
+        <div id="demomodal" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
             </div>
         </div>
-        <div id="test2" class="col s12">Trending</div>
+        </div>
         <div id="test3" class="col s12">Latest</div>
     </div>
     <div id="modal1" class="modal">
