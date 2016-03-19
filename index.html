@@ -16,7 +16,7 @@
         <div class="nav-wrapper  blue ">
             <a href="#" class="brand-logo">Newsrank</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#">Register</a></li>
+                <li><a id="mode3" onclick="callmode();" href="#modal3">Register</a></li>
                 <li><a href="#">Log In</a></li>
                 <li><a id="mode1" href="#modal1">Post</a></li>
             </ul>
@@ -24,16 +24,16 @@
     </nav>
 
     <div class="row">
-    <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s3"><a class="active" href="#test1">Top</a></li>
-        <li class="tab col s3"><a href="#test2">Trending</a></li>
-        <li class="tab col s3 disabled"><a href="#test3">Latest</a></li>
-      </ul>
-    </div>
-    <div id="test1" class="col s12">
-        <div class="row" id="topnews">   
-            <!--<div class="col l4">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a class="active" href="#test1">Top</a></li>
+                <li class="tab col s3"><a href="#test2">Trending</a></li>
+                <li class="tab col s3 disabled"><a href="#test3">Latest</a></li>
+            </ul>
+        </div>
+        <div id="test1" class="col s12">
+            <div class="row" id="topnews">
+                <!--<div class="col l4">
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title truncate">News Title too long to fit in the title content</span>
@@ -48,20 +48,22 @@
                     </div>
                 </div>
             </div>-->
-            
-        </div>        
-    </div>
-    <div id="test2" class="col s12">Trending
-         <a class="modal-trigger waves-effect waves-light btn" href="#modal1" id="mod">Modal</a>
-        <div id="demomodal" class="modal modal-fixed-footer">
-            <div class="modal-content">
-                <h4>Modal Header</h4>
-                <p>A bunch of text</p>
+
             </div>
         </div>
+        <div id="test2" class="col s12">Trending
+            <a class="modal-trigger waves-effect waves-light btn" href="#modal1" id="mod">Modal</a>
+            <div id="demomodal" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <h4>Modal Header</h4>
+                    <p>A bunch of text</p>
+                </div>
+            </div>
         </div>
         <div id="test3" class="col s12">Latest</div>
     </div>
+
+    <!-- POSTING NEW QUESTION MODAL -->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <h4>Posting a news</h4>
@@ -99,6 +101,34 @@
         </div>
     </div>
 
+    <!-- REGISTER USER MODAL -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <h4>Register a User</h4>
+            <p>Register a new User</p>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="userName" type="text" class="validate">
+                            <label for="userName">User Name</label>
+                            <p id="errorAlert" class="hide red-text text-darken-2">Username already used</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" onclick="authenticateUser();" id="reg" class=" modal-action waves-effect waves-green btn-flat">Register</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="JS/materialize.js"></script>

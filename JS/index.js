@@ -10,7 +10,6 @@ function postQuestion() {
         contentType: "application/json",
         success: function(response) {
             console.log("Successful Insert");
-            
         },
         error: function(error) {
             console.log(errer);
@@ -27,7 +26,7 @@ $(document).ready(function(){
       $("#mode1").on("click", function() {
         $('#modal1').openModal();
     });
-    
+   
     loadNews();
     
   });
