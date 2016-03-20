@@ -1,3 +1,12 @@
+// var userInfo ={
+//       "id": 1,
+//       "username": "user001",
+//       "password": "password001",
+//       "votes": {
+//         "up": [1,2],
+//         "down": [3] }
+//     };
+var userInfo = null;
 
 function postQuestion() {
     var headline = $("#headline").val();
@@ -6,60 +15,239 @@ function postQuestion() {
     $.ajax({
         url: "http://localhost:3000/allnews",
         type: "POST",
-        data: JSON.stringify({ "headLine": headline.toString(), "content": content.toString(), "url": url.toString(), "votes": 0}),
+        data: JSON.stringify({ "headLine": headline.toString(), "content": content.toString(), "url": url.toString(), "votes": 0 }),
         contentType: "application/json",
         success: function(response) {
             console.log("Successful Insert");
         },
         error: function(error) {
-            console.log(errer);
+            console.error("Error : " + error.status);
         }
     });
 }
 
-$(document).ready(function(){
+function loadNews() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3000/allnews",
+        datatype: "json",
+        success: function(response) {
+            console.log("Get all news successfull");
+            $.each(response, function(i, item) {
+                if (userInfo !== null) {
+                    item.up = (userInfo.votes.up.indexOf(item.id) != -1) ? "blue-text" : "black-text";
+                    item.down = (userInfo.votes.down.indexOf(item.id) != -1) ? "red-text" : "black-text";
+                }
+                else {
+                    item.up = "black-text";
+                    item.down = "black-text";
+                }
+                var card = "<div class=\"col s12 m6 l4\">" +
+                    "<div class=\"card hoverable\">" +
+                    "<div class=\"card-content\">" +
+                    "<span class=\"card-title truncate\">" + item.headLine + "</span>" +
+                    "<p>" + item.content + "</p>" +
+                    "<a href=\"" + item.url + "\">" + item.url + "</a>" +
+                    "</div>" +
+                    "<div data-id=\"" + item.id + "\" class=\"card-action right-align\">" +
+                    /*"<a><span>3</span><span> Comments</span></a>" +*/
+                    // "<a href=\""+ item.url +"\">"+ item.url +"</a>"+
+                    "<a class=\"waves-effect waves-teal btn-flat btn-floating  white thumbdown\"><i class=\"material-icons " + item.down + "\">thumb_down</i></a>" +
+                    "<span class=\"votes\">" + item.votes + "</span>" +
+                    "<a class=\"waves-effect waves-teal btn-flat btn-floating white thumbup\"><i class=\"material-icons " + item.up + "\">thumb_up</i></a>" +
+                    "</div>" +
+                    "</div>" + "</div>";
+                $("#topnews")[0].innerHTML += card;
+            });
+        },
+        error: function(xhr) {
+            console.error("Error fetching news: " + xhr.status + "\n" + xhr.responseText);
+        }
+    });
+}
+
+var thumbupClick = function() {
+    console.log($(this)[0].className + " clicked");
+    var newsId = Number($(this)[0].parentElement.dataset.id);
+    var newsVotes = Number($(this).parent().find("span.votes")[0].innerHTML);
+
+    var thumbup = ($(this).find("i.material-icons")[0].className.split(' ').indexOf("blue-text") != -1);
+    var thumbdown = ($(this).parent().find("a.thumbdown i.material-icons")[0].className.split(' ').indexOf("red-text") != -1);
+
+    if (userInfo != null) {
+        $(this).find("i.material-icons").toggleClass("blue-text");
+        $(this).find("i.material-icons").toggleClass("black-text");
+        // already liked ==> remove like & remove 1 vote
+        if (thumbup && !thumbdown) {
+            userInfo.votes.up.splice(userInfo.votes.up.indexOf(newsId), 1);
+            newsVotes -= 1;
+        }
+        // not liked and not disliked  ==>  add like & add 1 vote
+        else if (!thumbup && !thumbdown) {
+            userInfo.votes.up.push(newsId);
+            newsVotes += 1;
+        }
+        // not liked but disliked ==>  add like, remove dislike & add 2 votes
+        else if (thumbdown && !thumbup) {
+            userInfo.votes.up.push(newsId);
+            userInfo.votes.down.splice(userInfo.votes.down.indexOf(newsId), 1);
+            newsVotes += 2;
+            $(this).parent().find("a.thumbdown i.material-icons").addClass("black-text");
+            $(this).parent().find("a.thumbdown i.material-icons").removeClass("red-text");
+        }
+        $(this).parent().find("span.votes")[0].innerHTML = newsVotes;
+
+
+        updateNewsVotes(newsId, newsVotes);
+        updateUserVotes();
+    } else {
+        Materialize.toast('PLease Sign in to Vote!', 2000)
+    }
+};
+
+var thumbdownClick = function() {
+    console.log($(this)[0].className + " clicked");
+    var newsId = Number($(this)[0].parentElement.dataset.id);
+    var newsVotes = Number($(this).parent().find("span.votes")[0].innerHTML);
+
+    var thumbup = ($(this).parent().find("a.thumbup").find("i.material-icons")[0].className.split(' ').indexOf("blue-text") != -1);
+    var thumbdown = ($(this).find("i.material-icons")[0].className.split(' ').indexOf("red-text") != -1);
+
+    if (userInfo != null) {
+        $(this).find("i.material-icons").toggleClass("red-text");
+        $(this).find("i.material-icons").toggleClass("black-text");
+        // already disliked ==> remove dislike & add 1 vote
+        if (!thumbup && thumbdown) {
+            userInfo.votes.down.splice(userInfo.votes.down.indexOf(newsId), 1);
+            newsVotes += 1;
+        }
+        // not disliked and not liked ==> add like & add 1 vote
+        else if (!thumbup && !thumbdown) {
+            userInfo.votes.down.push(newsId);
+            newsVotes -= 1;
+        }
+        // not disliked but liked  ==>  add dislike, remove like & subtract 2 votes
+        else if (!thumbdown && thumbup) {
+            userInfo.votes.down.push(newsId);
+            userInfo.votes.up.splice(userInfo.votes.up.indexOf(newsId), 1);
+            newsVotes -= 2;
+            $(this).parent().find("a.thumbup i.material-icons").addClass("black-text");
+            $(this).parent().find("a.thumbup i.material-icons").removeClass("blue-text");
+
+        }
+        $(this).parent().find("span.votes")[0].innerHTML = newsVotes;
+        updateNewsVotes(newsId, newsVotes);
+        updateUserVotes();
+    } else {
+        Materialize.toast('PLease Sign in to Vote!', 2000);
+    }
+};
+
+
+function updateNewsVotes(newsId, votes) {
+    $.ajax({
+        type: "PATCH",
+        url: "http://localhost:3000/allnews/" + newsId,
+        data: JSON.stringify({ "votes": votes }),
+        contentType: "application/json",
+        datatype: "json",
+        success: function(response) {
+            console.log("update News Votes successfull");
+        },
+        error: function(xhr) {
+            console.error("Patch News Votes Error: " + xhr.status + "\n" + xhr.responseText);
+        }
+    });
+}
+
+function updateUserVotes() {
+    var updateArray;
+    /*if(updown === "up"){
+        updateArray = userInfo.votes.up;
+    } else if (updown === "down"){
+        updateArray = userInfo.votes.down;
+    }*/
+    $.ajax({
+        type: "PATCH",
+        url: "http://localhost:3000/users/" + userInfo.id,
+        data: JSON.stringify({ "votes": userInfo.votes }),
+        contentType: "application/json",
+        datatype: "json",
+        success: function(response) {
+            console.log("update User Info successfull");
+        },
+        error: function(xhr) {
+            console.error("Patch Users Error: " + xhr.status + "\n" + xhr.responseText);
+        }
+    });
+}
+
+function authenticateUser() {
+    var userName = $("#siuserName")[0].value;
+    var password = $("#sipassword")[0].value;
+    $("#modalsigninerror").addClass("hide");
+    $.ajax({
+        url: "http://localhost:3000/users/?username=" + userName + "&password=" + password,
+        type: "GET",
+        contentType: "application/json",
+        //data: JSON.stringify({"username": userName.toString()}),
+        success: function(response) {
+            console.log(response);
+            console.log(response.length);
+            if (response.length === 0) {
+                $("#modalsigninerror").toggleClass("hide");
+            }
+            else if (response.length === 1) {
+                userInfo = response[0];
+                $("#signinSuccess").toggleClass("hide");
+                $("#usernameTitleBar")[0].innerHTML = userInfo.username;
+                setTimeout(function() {
+                    $('#modalsignin').closeModal();
+                    $("#signinSuccess").toggleClass("hide");
+                }, 2000);
+
+                updateupdownvotesonscreen();
+            }
+        },
+        error: function(xhr) {
+            console.error("Authenticate User Error: " + xhr.status + "\n" + xhr.responseText);
+        }
+    });
+}
+
+function updateupdownvotesonscreen() {
+    // update up and down vote thumb color on sign in
+    // to be implemented
+}
+
+$(document).ready(function() {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    $("#mod").on("click",function(){
+    $("#mod").on("click", function() {
         $("#demomodal").openModal();
     });
-    
-      $("#mode1").on("click", function() {
+
+    $("#mode1").on("click", function() {
         $('#modal1').openModal();
     });
-   
-    loadNews();
+
+    $("#mode2").on("click", function() {
+        $("#siuserName")[0].value = "";
+        $("#sipassword")[0].value = "";
+        $("#siuserName").blur();
+        $("#sipassword").blur();
+        $("#modalsigninerror").toggleClass("hide", true);
+        $("#signinSuccess").toggleClass("hide", true);
+        $('#modalsignin').openModal();
+    });
+
+    $("#topnews").on("click", "div.col div.card div.card-action a.thumbup", thumbupClick);
+    $("#topnews").on("click", "div.col div.card div.card-action a.thumbdown", thumbdownClick);
+
+    $("#signout").on("click", function() {
+        userInfo = null;
+        $("#usernameTitleBar")[0].innerHTML = "";
+        Materialize.toast('Successfully Signed out.', 2000);
+    });
     
-  });
-  
-  function loadNews(){
-      $.ajax({
-          type:"GET",
-          url:"http://localhost:3000/allnews",
-          datatype:"json",
-          success: function(response){
-              $.each(response,function(i,item){
-                  var card = "<div class=\"col s12 m4\">"+ 
-                    "<div class=\"card hoverable\">" +
-                      "<div class=\"card-content\">" +
-                      "<span class=\"card-title truncate\">"+item.headLine+"</span>" +
-                      "<p>"+ item. content +"</p>" +
-                      "<p>"+ item.url +"</p>"+
-                      "</div>" +
-                      "<div class=\"card-action right-align\">" +
-                      "<a><span>3</span><span> Comments</span></a>" +
-                      "<a class=\"waves-effect waves-teal btn-flat\"><i class=\"material-icons\">thumb_down</i></a>" +
-                      "<span>"+ item.votes +"</span>" +
-                      "<a class=\"waves-effect waves-teal btn-flat\"><i class=\"material-icons\">thumb_up</i></a>" +
-                      "</div>" +
-                      "</div>"+ "</div>";
-                    $("#topnews")[0].innerHTML += card;
-                      
-                 
-              });
-             
-          },
-          error: function(){
-              
-          } 
-      });
-  }
+    loadNews();
+});
