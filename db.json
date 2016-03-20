@@ -5,28 +5,28 @@
       "headLine": "Dubai Floods",
       "content": "Dubai was flooded",
       "url": "https://news.google.com",
-      "votes": 125
+      "votes": 131
     },
     {
       "id": 2,
       "headLine": "Android N Developer preview releasd",
       "content": "Yesterday Googles Android N preview was released.",
       "url": "https://news.google.com",
-      "votes": 42
+      "votes": 43
     },
     {
       "id": 3,
       "headLine": "Vijay Malya flies to UK",
       "content": "Vijay Malya flies to UK 2 days ago.",
       "url": "https://news.google.com",
-      "votes": 6
+      "votes": 9
     },
     {
       "id": 4,
       "headLine": "Deepika in LA",
       "content": "Deepika was seen with Novak Djocowic leaving a hotel in LA last evening.",
       "url": "https://news.google.com",
-      "votes": 90
+      "votes": 91
     },
     {
       "id": 5,
@@ -34,6 +34,34 @@
       "content": "Google self drive car gets permit in California",
       "url": "https://news.google.com",
       "votes": 201
+    },
+    {
+      "headLine": "Nitesh wins Oscar",
+      "content": "    \nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "url": "http://nitesh.com",
+      "id": 6,
+      "votes": 12
+    },
+    {
+      "headLine": "Dipika is great",
+      "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "url": "http://helloworld.com",
+      "votes": -1,
+      "id": 7
+    },
+    {
+      "headLine": "Ashish is doing assignment",
+      "content": "Ashish is doing assignment, Ashish is doing assignment, Ashish is doing assignment",
+      "url": "http://www.google.com",
+      "votes": 1,
+      "id": 8
+    },
+    {
+      "headLine": "New news",
+      "content": "New content",
+      "url": "http://www.reddit.com",
+      "votes": 1,
+      "id": 9
     }
   ],
   "users": [
@@ -43,8 +71,8 @@
       "password": "password001",
       "votes": {
         "up": [
-          1,
-          2
+          2,
+          1
         ],
         "down": [
           3
@@ -64,6 +92,49 @@
           1
         ]
       }
+    },
+    {
+      "username": "Nitesh",
+      "password": "Nitesh",
+      "votes": {
+        "up": [],
+        "down": []
+      },
+      "id": 4
+    },
+    {
+      "username": "Pritesh",
+      "password": "pritesh",
+      "votes": {
+        "up": [
+          2,
+          5
+        ],
+        "down": [
+          3
+        ]
+      },
+      "id": 5
+    },
+    {
+      "username": "Rohan",
+      "password": "rohan",
+      "votes": {
+        "up": [],
+        "down": []
+      },
+      "id": 6
+    },
+    {
+      "username": "Nimesh",
+      "password": "nimesh",
+      "votes": {
+        "up": [
+          2
+        ],
+        "down": []
+      },
+      "id": 7
     }
   ]
 }

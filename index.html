@@ -1,111 +1,207 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="CSS/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="CSS/materialize.css" media="screen,projection" />
     <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 </head>
 
-<body>
+<body class="grey lighten-4">
     <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper blue ">
+            <a href="#" data-activates="nav-mob" class="button-collapse"><i class="material-icons">menu</i></a>
             <a href="#" class="brand-logo">Newsrank</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Log In</a></li>
+            <ul id="nav-web" class="right hide-on-med-and-down">
+                <li>
+                    <a id="usernameTitleBar" class='dropdown-button' href='#' data-activates='userdropdown'></a>
+                    <!-- Dropdown Structure -->
+                    <ul id='userdropdown' class='dropdown-content'>
+                        <li><a href="#!">Profile</a></li>
+                        <li><a href="#!">Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#!" id="signout">Sign out</a></li>
+                    </ul>
+                </li>
+                <li><a id="mode3" onclick="callmode();" href="#modal3">New User</a></li>
+                <li><a id="mode2" href="#modalsignin">Sign In</a></li>
+                <li><a id="mode1" href="#modal1">Post</a></li>
             </ul>
+            
+            <ul id="nav-mob" class="side-nav">
+                <li>
+                    <a id="musernameTitleBar" class='dropdown-button' href='#' data-activates='muserdropdown'></a>
+                    <!-- Dropdown Structure -->
+                    <ul id='muserdropdown' class='dropdown-content'>
+                        <li><a href="#!">Profile</a></li>
+                        <li><a href="#!">Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#!" id="signout">Sign out</a></li>
+                    </ul>
+                </li>
+                <li><a id="mmode3" onclick="callmode();" href="#modal3">New User</a></li>
+                <li><a id="mmode2" href="#modalsignin">Sign In</a></li>
+                <li><a id="mmode1" href="#modal1">Post</a></li>
+            </ul>
+            
         </div>
     </nav>
-    
+
     <div class="row">
-    <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s3"><a class="active" href="#test1">Top</a></li>
-        <li class="tab col s3"><a href="#test2">Trending</a></li>
-        <li class="tab col s3 disabled"><a href="#test3">Latest</a></li>
-      </ul>
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a class="active" href="#test1">Top</a></li>
+                <li class="tab col s3"><a href="#test2">Trending</a></li>
+                <li class="tab col s3 disabled"><a href="#test3">Latest</a></li>
+            </ul>
+        </div>
+        <div id="test1" class="col s12">
+            <div class="row" id="topnews">
+                <!--<div class="col l4">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title truncate">News Title too long to fit in the title content</span>
+                        <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient because I require
+                            little markup to use effectively. </p>
+                    </div>
+                    <div class="card-action right-align">
+                        <a><span>3</span><span> Comments</span></a>
+                        <a class="waves-effect waves-teal btn-flat"><i class="material-icons">thumb_down</i></a>
+                        <span>125</span>
+                        <a class="waves-effect waves-teal btn-flat"><i class="material-icons">thumb_up</i></a>
+                    </div>
+                </div>
+            </div>-->
+
+            </div>
+        </div>
+        <div id="test2" class="col s12">Trending
+            <a class="modal-trigger waves-effect waves-light btn" href="#modal1" id="mod">Modal</a>
+            <div id="demomodal" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <h4>Modal Header</h4>
+                    <p>A bunch of text</p>
+                </div>
+            </div>
+        </div>
+        <div id="test3" class="col s12">Latest</div>
     </div>
-    <div id="test1" class="col s12">
-        <div class="row">
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title">Card Title</span>
-                        <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient because I require
-                            little markup to use effectively.</p>
+
+    <!-- POSTING NEW QUESTION MODAL -->
+    <div id="modal1" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Post a news</h4>
+            <!--<p>Type in a news that you want to post</p>-->
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="headline" type="text" class="validate">
+                            <label for="email">Headline</label>
+                        </div>
                     </div>
-                    <div class="card-action">
-                        <i class="material-icons">thumb_down</i>
-                        <i class="material-icons">thumb_up</i>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="newsContent" class="materialize-textarea"></textarea>
+                                    <label for="textarea1">Content</label>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="newsURL" type="text" class="validate">
+                            <label for="email">URL</label>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title">Card Title</span>
-                        <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient because I require
-                            little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                        <i class="material-icons">thumb_down</i>
-                        <i class="material-icons">thumb_up</i>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title">Card Title</span>
-                        <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient because I require
-                            little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                        <i class="material-icons">thumb_down</i>
-                        <i class="material-icons">thumb_up</i>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title">Card Title</span>
-                        <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient because I require
-                            little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                        <i class="material-icons">thumb_down</i>
-                        <i class="material-icons">thumb_up</i>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title">Card Title</span>
-                        <p>I am a very simple card. I am good at containing small bits of information of News. I am convenient because I require
-                            little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                        <ul class="right">
-                            <li><i class="material-icons">thumb_down</i></li>
-                            <li><i class="material-icons">thumb_up</i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>        
+        </div>
+        <div class="modal-footer">
+            <a href="#!" onclick="postQuestion();" class=" modal-action modal-close waves-effect waves-green btn-flat">Post</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
     </div>
-    <div id="test2" class="col s12">Trending</div>
-    <div id="test3" class="col s12">Latest</div>
-  </div>
+
+    <!-- REGISTER USER MODAL -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <h4>New User?</h4>
+            <p>Create your unique username on Newsrank</p>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="userName" type="text" class="validate">
+                            <label for="userName">User Name</label>
+                            <p id="errorAlert" class="hide red-text text-darken-2">Sorry! someone already took that username.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                </form>
+                <p id="regSuccess" class="hide green-text text-darken-1">Registration Successfull. Welcome to Newsrank.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" onclick="checkUserName();" id="reg" class=" modal-action waves-effect waves-green btn-flat">Register</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+    
+    
+    <!-- Sign In USER MODAL -->
+    <div id="modalsignin" class="modal">
+        <div class="modal-content">
+            <h4>Sign in</h4>
+            <p>Sign in Newsrank</p>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="siuserName" type="text" class="validate">
+                            <label for="siuserName">User Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="sipassword" type="password" class="validate">
+                            <label for="sipassword">Password</label>
+                        </div>
+                    </div>
+                </form>
+                <p id="modalsigninerror" class="hide red-text text-darken-2">Looks like you mistyped your username or password.</p>
+                <p id="signinSuccess" class="hide green-text text-darken-1">Sign in Successfull. Welcome back.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" onclick="authenticateUser();" id="reg" class=" modal-action waves-effect waves-green btn-flat">Sign in</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+    
+    
+    
     
     
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="JS/materialize.js"></script>
+    <script src="JS/index.js" type="text/javascript"></script>
+    <script src="JS/nimesh.js" type="text/javascript"></script>
+    <script src="JS/rohan.js" type="text/javascript"></script>
+    <script src="JS/rakesh.js" type="text/javascript"></script>
+    <script src="JS/nitesh.js" type="text/javascript"></script>
 </body>
+
 </html>
