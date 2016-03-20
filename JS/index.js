@@ -101,7 +101,7 @@ var thumbupClick = function() {
         updateNewsVotes(newsId, newsVotes);
         updateUserVotes();
     } else {
-        Materialize.toast('PLease Sign in to Vote!', 2000)
+        Materialize.toast('Please Sign in to Vote!', 2000)
     }
 };
 
@@ -139,7 +139,7 @@ var thumbdownClick = function() {
         updateNewsVotes(newsId, newsVotes);
         updateUserVotes();
     } else {
-        Materialize.toast('PLease Sign in to Vote!', 2000);
+        Materialize.toast('Please Sign in to Vote!', 2000);
     }
 };
 
@@ -206,7 +206,7 @@ function authenticateUser() {
                     $("#signinSuccess").toggleClass("hide");
                 }, 2000);
 
-                updateupdownvotesonscreen();
+                updateupdownvotesonscreen(true);
             }
         },
         error: function(xhr) {
@@ -215,10 +215,93 @@ function authenticateUser() {
     });
 }
 
-function updateupdownvotesonscreen() {
+function updateupdownvotesonscreen(signin) {
     // update up and down vote thumb color on sign in
     // to be implemented
+    if(signin){
+        var cards = $("#topnews").find("div.col");
+        $.each(cards, function(i, card) {
+            var newsId = Number($(card).find("div.card div.card-action")[0].dataset.id);
+            var upVote = (userInfo.votes.up.indexOf(newsId) !== -1);
+            var downVote = (userInfo.votes.down.indexOf(newsId) !== -1);
+            if (upVote) {
+                $(card).find("div.card div.card-action a.thumbup i.material-icons").toggleClass("black-text");
+                $(card).find("div.card div.card-action a.thumbup i.material-icons").toggleClass("blue-text");
+            }
+            if (downVote) {
+                $(card).find("div.card div.card-action a.thumbdown i.material-icons").toggleClass("black-text");
+                $(card).find("div.card div.card-action a.thumbdown i.material-icons").toggleClass("red-text");
+            }
+        });
+    } else {
+        var cards = $("#topnews").find("div.col");
+        $.each(cards, function(i, card) {
+                $(card).find("div.card div.card-action a.thumbup i.material-icons").toggleClass("black-text",true);
+                $(card).find("div.card div.card-action a.thumbup i.material-icons").toggleClass("blue-text",false);
+                $(card).find("div.card div.card-action a.thumbdown i.material-icons").toggleClass("black-text",true);
+                $(card).find("div.card div.card-action a.thumbdown i.material-icons").toggleClass("red-text",false);
+        });
+    }
 }
+
+
+function callmode() {
+    $("#errorAlert").addClass("hide");
+    $("#userName").val("");
+    $("#password").val("");
+    $('#modal3').openModal();
+}
+function checkUserName() {
+    var userName = $("#userName").val();
+    $("#errorAlert").addClass("hide");
+    $.ajax({
+        url: "http://localhost:3000/users/?username=" + userName,
+        type: "GET",
+        contentType: "application/json",
+        data: JSON.stringify({ "username": userName.toString() }),
+        success: function(response) {
+
+            console.log(response);
+            console.log(response.length);
+            if (response.length != 0) {
+                $("#errorAlert").toggleClass("hide");
+            }
+            else {
+                registerUser();
+            }
+        },
+        error: function(error) {
+            console.log("error " + error);
+        }
+    });
+}
+
+function registerUser() {
+    var userName = $("#userName").val();
+    var password = $("#password").val();
+    var votes = { "up": [], "down": [] };
+    $.ajax({
+        url: "http://localhost:3000/users",
+        type: "POST",
+        data: JSON.stringify({ "username": userName.toString(), "password": password.toString(), "votes": votes }),
+        contentType: "application/json",
+        success: function(response) {
+            $("#regSuccess").toggleClass("hide");
+            userInfo = response;
+            $("#usernameTitleBar")[0].innerHTML = userInfo.username;
+            updateupdownvotesonscreen(true);
+            setTimeout(function() {
+                $('#modal3').closeModal();
+                $("#regSuccess").toggleClass("hide");
+            }, 2000);
+            console.log("Successful Registration");
+        },
+        error: function(xhr) {
+            console.error("Registration Error: " + xhr.status + "\n" + xhr.responseText);
+        }
+    });
+}
+
 
 $(document).ready(function() {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
@@ -226,11 +309,13 @@ $(document).ready(function() {
         $("#demomodal").openModal();
     });
 
-    $("#mode1").on("click", function() {
+    $("#mode1,#mmode1").on("click", function() {
         $('#modal1').openModal();
     });
+    
+    $(".button-collapse").sideNav();
 
-    $("#mode2").on("click", function() {
+    $("#mode2,#mmode2").on("click", function() {
         $("#siuserName")[0].value = "";
         $("#sipassword")[0].value = "";
         $("#siuserName").blur();
@@ -246,8 +331,9 @@ $(document).ready(function() {
     $("#signout").on("click", function() {
         userInfo = null;
         $("#usernameTitleBar")[0].innerHTML = "";
+        updateupdownvotesonscreen(false);
         Materialize.toast('Successfully Signed out.', 2000);
     });
-    
+
     loadNews();
 });

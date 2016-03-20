@@ -13,13 +13,12 @@
 
 <body class="grey lighten-4">
     <nav>
-        <div class="nav-wrapper  blue ">
+        <div class="nav-wrapper blue ">
+            <a href="#" data-activates="nav-mob" class="button-collapse"><i class="material-icons">menu</i></a>
             <a href="#" class="brand-logo">Newsrank</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <ul id="nav-web" class="right hide-on-med-and-down">
                 <li>
-                    
                     <a id="usernameTitleBar" class='dropdown-button' href='#' data-activates='userdropdown'></a>
-
                     <!-- Dropdown Structure -->
                     <ul id='userdropdown' class='dropdown-content'>
                         <li><a href="#!">Profile</a></li>
@@ -27,12 +26,28 @@
                         <li class="divider"></li>
                         <li><a href="#!" id="signout">Sign out</a></li>
                     </ul>
-                    
                 </li>
                 <li><a id="mode3" onclick="callmode();" href="#modal3">New User</a></li>
                 <li><a id="mode2" href="#modalsignin">Sign In</a></li>
                 <li><a id="mode1" href="#modal1">Post</a></li>
             </ul>
+            
+            <ul id="nav-mob" class="side-nav">
+                <li>
+                    <a id="musernameTitleBar" class='dropdown-button' href='#' data-activates='muserdropdown'></a>
+                    <!-- Dropdown Structure -->
+                    <ul id='muserdropdown' class='dropdown-content'>
+                        <li><a href="#!">Profile</a></li>
+                        <li><a href="#!">Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#!" id="signout">Sign out</a></li>
+                    </ul>
+                </li>
+                <li><a id="mmode3" onclick="callmode();" href="#modal3">New User</a></li>
+                <li><a id="mmode2" href="#modalsignin">Sign In</a></li>
+                <li><a id="mmode1" href="#modal1">Post</a></li>
+            </ul>
+            
         </div>
     </nav>
 
@@ -77,7 +92,7 @@
     </div>
 
     <!-- POSTING NEW QUESTION MODAL -->
-    <div id="modal1" class="modal">
+    <div id="modal1" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h4>Post a news</h4>
             <!--<p>Type in a news that you want to post</p>-->
