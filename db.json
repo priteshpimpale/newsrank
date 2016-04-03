@@ -5,63 +5,40 @@
       "headLine": "Dubai Floods",
       "content": "Dubai was flooded",
       "url": "https://news.google.com",
-      "votes": 131
+      "date": "2016-02-21T07:33:47.224Z",
+      "votes": 132
     },
     {
       "id": 2,
       "headLine": "Android N Developer preview releasd",
       "content": "Yesterday Googles Android N preview was released.",
-      "url": "https://news.google.com",
-      "votes": 43
+      "url": "http://techcrunch.com/2016/03/09/google-surprises-with-early-preview-of-android-n/",
+      "date": "2016-03-17T07:33:47.224Z",
+      "votes": 46
     },
     {
       "id": 3,
       "headLine": "Vijay Malya flies to UK",
       "content": "Vijay Malya flies to UK 2 days ago.",
       "url": "https://news.google.com",
-      "votes": 9
+      "date": "2016-02-22T07:30:47.224Z",
+      "votes": 11
     },
     {
       "id": 4,
       "headLine": "Deepika in LA",
       "content": "Deepika was seen with Novak Djocowic leaving a hotel in LA last evening.",
       "url": "https://news.google.com",
-      "votes": 91
+      "date": "2016-01-28T07:33:47.224Z",
+      "votes": 93
     },
     {
       "id": 5,
       "headLine": "Google self drive car",
       "content": "Google self drive car gets permit in California",
       "url": "https://news.google.com",
-      "votes": 201
-    },
-    {
-      "headLine": "Nitesh wins Oscar",
-      "content": "    \nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "url": "http://nitesh.com",
-      "id": 6,
-      "votes": 12
-    },
-    {
-      "headLine": "Dipika is great",
-      "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "url": "http://helloworld.com",
-      "votes": -1,
-      "id": 7
-    },
-    {
-      "headLine": "Ashish is doing assignment",
-      "content": "Ashish is doing assignment, Ashish is doing assignment, Ashish is doing assignment",
-      "url": "http://www.google.com",
-      "votes": 1,
-      "id": 8
-    },
-    {
-      "headLine": "New news",
-      "content": "New content",
-      "url": "http://www.reddit.com",
-      "votes": 1,
-      "id": 9
+      "votes": 203,
+      "date": "2015-01-21T07:33:47.224Z"
     }
   ],
   "users": [
@@ -72,7 +49,8 @@
       "votes": {
         "up": [
           2,
-          1
+          1,
+          5
         ],
         "down": [
           3
@@ -107,12 +85,11 @@
       "password": "pritesh",
       "votes": {
         "up": [
+          4,
           2,
           5
         ],
-        "down": [
-          3
-        ]
+        "down": []
       },
       "id": 5
     },
@@ -135,6 +112,21 @@
         "down": []
       },
       "id": 7
+    },
+    {
+      "username": "unknown",
+      "password": "unknown",
+      "votes": {
+        "up": [
+          1,
+          3,
+          2,
+          4,
+          5
+        ],
+        "down": []
+      },
+      "id": 8
     }
   ]
 }
