@@ -1,0 +1,27 @@
+{
+  "name": "newsrank",
+  "version": "1.0.0",
+  "description": "News voting site",
+  "main": "db.json",
+  "dependencies": {
+    "json-server": "^0.8.9"
+  },
+  "scripts": {
+    "start": "json-server db.json --static ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priteshpimpale/newsrank.git"
+  },
+  "keywords": [
+    "News",
+    "vote",
+    "rank"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/priteshpimpale/newsrank/issues"
+  },
+  "homepage": "https://github.com/priteshpimpale/newsrank#readme"
+}

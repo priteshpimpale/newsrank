@@ -10,8 +10,6 @@ var userInfo = null;
 
 function postQuestion() {
     
-    
-    
     var headline = $("#headline").val();
     var content = $("#newsContent").val();
     var url = $("#newsURL").val();
@@ -257,7 +255,6 @@ function authenticateUser() {
                 $("#tabliked,#tabdisliked").toggleClass("hide",false);
                 $("#tabs").find("li.tabs a.active").toggleClass("active",false);
                 $("#tabtop").find("a").toggleClass("active",true);
-                //$("").toggleClass("hide",false);
                 setTimeout(function() {
                     $('#modalsignin').closeModal();
                     $("#signinSuccess").toggleClass("hide");
@@ -274,9 +271,9 @@ function authenticateUser() {
 
 function updateupdownvotesonscreen(signin) {
     // update up and down vote thumb color on sign in
-    // to be implemented
     if(signin){
         var cards = $("#topnews").find("div.col");
+        cards = $.merge(cards,$("#latestnews").find("div.col"));
         $.each(cards, function(i, card) {
             var newsId = Number($(card).find("div.card div.card-action")[0].dataset.id);
             var upVote = (userInfo.votes.up.indexOf(newsId) !== -1);
