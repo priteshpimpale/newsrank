@@ -1,14 +1,11 @@
-// var userInfo ={
-//       "id": 1,
-//       "username": "user001",
-//       "password": "password001",
-//       "votes": {
-//         "up": [1,2],
-//         "down": [3] }
-//     };
+/* globals $,Materialize */
+/* jshint unused:false */
+
+"use strict";
 var userInfo = null;
 
-function postQuestion() {
+// posts the news to server.
+function postNews() {
     
     var headline = $("#headline").val();
     var content = $("#newsContent").val();
@@ -27,7 +24,6 @@ function postQuestion() {
                 var card = createCard(response);
                 $("#topnews")[0].innerHTML += card;
                 $("modal1").closeModal();
-                
             },
             error: function(error) {
                 console.error("Error : " + error.status);
@@ -38,8 +34,9 @@ function postQuestion() {
     }
 }
 
+// load the news content from the server.
 function loadNews(section) {
-    var newsDiv,sort,url,querystring="";
+    var newsDiv,url,querystring="";
     if(section === "top" ){
         newsDiv = "#topnews";
         url = "/allnews/?_sort=votes&_order=DESC";
@@ -68,7 +65,6 @@ function loadNews(section) {
             console.log("Get all news successfull");
             if(section === "latest"){
                 response.sort(function(a,b){
-                    //console.log(new Date(a.date));
                     return new Date(b.date) - new Date(a.date);
                 });
             }
@@ -98,7 +94,7 @@ function loadNews(section) {
     });
 }
 
-
+// creates the news card with the data in item.  
 var createCard = function(item){
     return "<div class=\"col s12 m6 l4\">" +
                 "<div class=\"card hoverable\" data-activates=\"read-news-slide\">" +
@@ -108,23 +104,19 @@ var createCard = function(item){
             "<a target=\"_blank\" class=\"truncate\" href=\"" + item.url + "\">" + item.url + "</a>" +
             "</div>" +
             "<div data-id=\"" + item.id + "\" class=\"card-action right-align\">" +
-            /*"<a><span>3</span><span> Comments</span></a>" +*/
-            // "<a href=\""+ item.url +"\">"+ item.url +"</a>"+
             "<a class=\"waves-effect waves-teal btn-flat btn-floating  white thumbdown\"><i class=\"material-icons " + item.down + "\">thumb_down</i></a>" +
             "<span class=\"votes\">" + item.votes + "</span>" +
             "<a class=\"waves-effect waves-teal btn-flat btn-floating white thumbup\"><i class=\"material-icons " + item.up + "\">thumb_up</i></a>" +
             "</div></div></div>";
-}
+};
 
 var thumbupClick = function() {
-    console.log($(this)[0].className + " clicked");
     var newsId = Number($(this)[0].parentElement.dataset.id);
     var newsVotes = Number($(this).parent().find("span.votes")[0].innerHTML);
-
     var thumbup = ($(this).find("i.material-icons")[0].className.split(' ').indexOf("blue-text") != -1);
     var thumbdown = ($(this).parent().find("a.thumbdown i.material-icons")[0].className.split(' ').indexOf("red-text") != -1);
 
-    if (userInfo != null) {
+    if (userInfo !== null) {
         $(this).find("i.material-icons").toggleClass("blue-text");
         $(this).find("i.material-icons").toggleClass("black-text");
         // already liked ==> remove like & remove 1 vote
@@ -147,11 +139,10 @@ var thumbupClick = function() {
         }
         $(this).parent().find("span.votes")[0].innerHTML = newsVotes;
 
-
         updateNewsVotes(newsId, newsVotes);
         updateUserVotes();
     } else {
-        Materialize.toast('Please Sign in to Vote!', 2000)
+        Materialize.toast('Please Sign in to Vote!', 2000);
     }
 };
 
@@ -159,11 +150,10 @@ var thumbdownClick = function() {
     console.log($(this)[0].className + " clicked");
     var newsId = Number($(this)[0].parentElement.dataset.id);
     var newsVotes = Number($(this).parent().find("span.votes")[0].innerHTML);
-
     var thumbup = ($(this).parent().find("a.thumbup").find("i.material-icons")[0].className.split(' ').indexOf("blue-text") != -1);
     var thumbdown = ($(this).find("i.material-icons")[0].className.split(' ').indexOf("red-text") != -1);
 
-    if (userInfo != null) {
+    if (userInfo !== null) {
         $(this).find("i.material-icons").toggleClass("red-text");
         $(this).find("i.material-icons").toggleClass("black-text");
         // already disliked ==> remove dislike & add 1 vote
@@ -193,7 +183,7 @@ var thumbdownClick = function() {
     }
 };
 
-
+// updates the votecount after user votes.
 function updateNewsVotes(newsId, votes) {
     $.ajax({
         type: "PATCH",
@@ -210,6 +200,7 @@ function updateNewsVotes(newsId, votes) {
     });
 }
 
+// updates the user json after user votes.
 function updateUserVotes() {
     $.ajax({
         type: "PATCH",
@@ -226,6 +217,7 @@ function updateUserVotes() {
     });
 }
 
+// authenticates the user by validating correct username and password.
 function authenticateUser() {
     var userName = $("#siuserName")[0].value;
     var password = $("#sipassword")[0].value;
@@ -234,7 +226,6 @@ function authenticateUser() {
         url: "/users/?username=" + userName + "&password=" + password,
         type: "GET",
         contentType: "application/json",
-        //data: JSON.stringify({"username": userName.toString()}),
         success: function(response) {
             console.log(response);
             console.log(response.length);
@@ -269,10 +260,11 @@ function authenticateUser() {
     });
 }
 
+// update up and down vote thumb color on sign in
 function updateupdownvotesonscreen(signin) {
-    // update up and down vote thumb color on sign in
+    var cards;
     if(signin){
-        var cards = $("#topnews").find("div.col");
+        cards = $("#topnews").find("div.col");
         cards = $.merge(cards,$("#latestnews").find("div.col"));
         $.each(cards, function(i, card) {
             var newsId = Number($(card).find("div.card div.card-action")[0].dataset.id);
@@ -288,7 +280,7 @@ function updateupdownvotesonscreen(signin) {
             }
         });
     } else {
-        var cards = $("#topnews").find("div.col");
+        cards = $("#topnews").find("div.col");
         $.each(cards, function(i, card) {
                 $(card).find("div.card div.card-action a.thumbup i.material-icons").toggleClass("black-text",true);
                 $(card).find("div.card div.card-action a.thumbup i.material-icons").toggleClass("blue-text",false);
@@ -298,13 +290,15 @@ function updateupdownvotesonscreen(signin) {
     }
 }
 
-
-function callmode() {
+// opens sign-up modal interface
+function signUp() {
     $("#errorAlert").addClass("hide");
     $("#userName").val("");
     $("#password").val("");
     $('#modal3').openModal();
 }
+
+// verifies if username exists or not. 
 function checkUserName() {
     var userName = $("#userName").val();
     $("#errorAlert").addClass("hide");
@@ -317,7 +311,7 @@ function checkUserName() {
 
             console.log(response);
             console.log(response.length);
-            if (response.length != 0) {
+            if (response.length !== 0) {
                 $("#errorAlert").toggleClass("hide");
             }
             else {
@@ -330,6 +324,7 @@ function checkUserName() {
     });
 }
 
+// caretes a new user for the site. adds user information to db.json.
 function registerUser() {
     var userName = $("#userName").val();
     var password = $("#password").val();
@@ -342,7 +337,7 @@ function registerUser() {
         success: function(response) {
             $("#regSuccess").toggleClass("hide");
             userInfo = response;
-            $("#usernameTitleBar,#musernameTitleBar")[0].innerHTML = userInfo.username + + "<i class=\"material-icons right\">arrow_drop_down</i>"; 
+            $("#usernameTitleBar,#musernameTitleBar")[0].innerHTML = userInfo.username + "<i class=\"material-icons right\">arrow_drop_down</i>"; 
             $("#usernameTitleBar,#musernameTitleBar").toggleClass("hide",false);
             $("#mode1,#mmode1").toggleClass("hide",false);
             $("#mode2,#mmode2,#mode3,#mmode3").toggleClass("hide",true);
@@ -359,6 +354,7 @@ function registerUser() {
     });
 }
 
+// hides the news not matching the search content. 
 var searchNews = function(){
     var query = $("#search")[0].value;
     var cards = $("#topnews").find("div.col");
@@ -374,7 +370,7 @@ var searchNews = function(){
     });
 };
 
-
+// Initializes the html by calling functions to load news and binding click events of the buttons/links.
 $(document).ready(function() {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $("#mod").on("click", function() {
@@ -388,12 +384,6 @@ $(document).ready(function() {
     
     $(".button-collapse").sideNav();
     
-    $(".cardl").sideNav({
-      menuWidth: 500, // Default is 240
-      edge: 'right', // Choose the horizontal origin
-      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-    });
-
     $("#mode2,#mmode2").on("click", function() {
         $("#siuserName")[0].value = "";
         $("#sipassword")[0].value = "";

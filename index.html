@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <title>Newsrank</title>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -29,13 +30,10 @@
                     </a>
                     <!-- Dropdown Structure -->
                     <ul id='userdropdown' class='dropdown-content'>
-                        <li><a href="#!">Profile</a></li>
-                        <li><a href="#!">Settings</a></li>
-                        <li class="divider"></li>
                         <li><a href="#!" id="signout">Sign out</a></li>
                     </ul>
                 </li>
-                <li><a id="mode3" class="" onclick="callmode();" href="#modal3">New User</a></li>
+                <li><a id="mode3" class="" onclick="signUp();" href="#modal3">New User</a></li>
                 <li><a id="mode2" class="" href="#modalsignin">Sign In</a></li>
                 <li><a id="mode1" class="hide" href="#modal1">Post</a></li>
             </ul>
@@ -55,13 +53,10 @@
                     </a>
                     <!-- Dropdown Structure -->
                     <ul id='muserdropdown' class='dropdown-content'>
-                        <li><a href="#!">Profile</a></li>
-                        <li><a href="#!">Settings</a></li>
-                        <li class="divider"></li>
                         <li><a href="#!" id="msignout">Sign out</a></li>
                     </ul>
                 </li>
-                <li><a id="mmode3" onclick="callmode();" href="#modal3">New User</a></li>
+                <li><a id="mmode3" onclick="signUp();" href="#modal3">New User</a></li>
                 <li><a id="mmode2" href="#modalsignin">Sign In</a></li>
                 <li><a id="mmode1" href="#modal1">Post</a></li>
             </ul>
@@ -81,6 +76,7 @@
         </div>
         <div id="test1" class="col s12">
             <div class="row" id="topnews">
+                <!--Following block comment demonstrates the sample card used-->
                 <!--<div class="col s12 m6 l4">
                     <div class="card" >
                         <div class="card-content">
@@ -123,14 +119,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <form class="col s12">
+                        <div class="col s12">
                             <div class="row">
                                 <div class="input-field col s12">
                                     <textarea id="newsContent" class="materialize-textarea"></textarea>
                                     <label for="textarea1">Content</label>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <p id="postError" class="hide red-text text-darken-1">News headline and content requied.</p>
                     <div class="row">
@@ -144,7 +140,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" onclick="postQuestion();" class=" modal-action waves-effect waves-green btn-flat">Post</a>
+            <a href="#!" onclick="postNews();" class=" modal-action waves-effect waves-green btn-flat">Post</a>
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
